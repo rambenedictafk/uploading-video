@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Sharing Platform</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #0f0f0f;
+            color: #f0f0f0;
+            line-height: 1.6;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://placehold.it/1920x1080');
+            background-size: cover;
+            background-attachment: fixed;
+        }
+        
+        /* Header styles */
+        .heading-container {
+            background-color: #1a0022;
+            color: #ff66c4;
+            padding: 1.5rem;
+            text-align: center;
+            border-bottom: 3px solid #ff66c4;
+            text-shadow: 0 0 10px #ff66c4;
+        }
+        
+        .heading-container h1 {
+            font-size: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        /* Navigation styles */
+        .navbar {
+            background-color: rgba(15, 15, 15, 0.8);
+            padding: 1rem 0;
+            border-bottom: 1px solid #ff66c4;
+        }
+        
+        .navbar ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+        
+        .navbar li {
+            margin: 0 1.5rem;
+        }
+        
+        .navbar a {
+            color: #ff66c4;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s;
+            cursor: pointer;
+            text-shadow: 0 0 5px #ff66c4;
+        }
+        
+        .navbar a:hover {
+            background-color: #ff66c4;
+            color: #0f0f0f;
+            box-shadow: 0 0 15px #ff66c4;
+        }
+        
+        /* Hero section */
+        .hero-container {
+            background-color: rgba(15, 15, 15, 0.7);
+            color: #fff;
+            text-align: center;
+            padding: 5rem 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #ff66c4;
+        }
+        
+        .hero-container h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #ff66c4;
+            text-shadow: 0 0 10px #ff66c4;
+        }
+        
+        .hero-container h3 {
+            font-size: 1.5rem;
+            font-weight: normal;
+            color: #f0f0f0;
+        }
+        
+        /* Upload section */
+        .upload-section {
+            background-color: rgba(15, 15, 15, 0.8);
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(255, 102, 196, 0.3);
+            padding: 2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            text-align: center;
+            border: 1px solid #ff66c4;
+        }
+        
+        .upload-section h2 {
+            margin-bottom: 1.5rem;
+            color: #ff66c4;
+            text-shadow: 0 0 5px #ff66c4;
+        }
+        
+        .upload-section form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .upload-section input[type="file"] {
+            margin-bottom: 1.5rem;
+            padding: 0.8rem;
+            width: 100%;
+            max-width: 300px;
+            background-color: #1a0022;
+            color: #f0f0f0;
+            border: 1px solid #ff66c4;
+            border-radius: 4px;
+        }
+        
+        .upload-section input[type="submit"] {
+            background-color: #ff66c4;
+            color: #0f0f0f;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .upload-section input[type="submit"]:hover {
+            background-color: #ff99d6;
+            box-shadow: 0 0 15px #ff66c4;
+            transform: scale(1.05);
+        }
+        
+        /* Video section */
+        .video-section {
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            padding: 1rem;
+        }
+
+        /* Video post styles */
+        .video-container {
+            background-color: rgba(15, 15, 15, 0.8);
+            border: 1px solid #ff66c4;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 0 20px rgba(255, 102, 196, 0.3);
+        }
+        
+        .video-post h3 {
+            color: #ff66c4;
+            margin-bottom: 0.5rem;
+            text-align: left;
+            font-size: 1.5rem;
+        }
+        
+        .timestamp {
+            color: #a0a0a0;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+        
+        .video-post video {
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            width: 100%;
+            background-color: #000;
+        }
+        
+        .video-actions {
+            display: flex;
+            justify-content: flex-start;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .video-actions button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .video-actions .like-btn:hover {
+            background-color: #ff3366;
+        }
+        
+        .video-actions .share-btn:hover {
+            background-color: #3399ff;
+        }
+        
+        .video-actions .delete-btn:hover {
+            background-color: #ff4444;
+        }
+        
+        /* Popup styles */
+        .popup {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+        }
+        
+        .popup-content {
+            background-color: #1a0022;
+            border: 2px solid #ff66c4;
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(255, 102, 196, 0.5);
+            width: 80%;
+            max-width: 500px;
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 2rem;
+            text-align: center;
+            animation: glow 2s infinite alternate;
+        }
+        
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 10px rgba(255, 102, 196, 0.5);
+            }
+            to {
+                box-shadow: 0 0 30px rgba(255, 102, 196, 0.8);
+            }
+        }
+        
+        .popup-content h2 {
+            color: #ff66c4;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 5px #ff66c4;
+        }
+        
+        .popup-content p {
+            color: #f0f0f0;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 2rem;
+            color: #ff66c4;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .close:hover {
+            color: #ff99d6;
+            text-shadow: 0 0 10px #ff66c4;
+            transform: scale(1.2);
+        }
+        
+        /* Ad section */
+        .ad-section {
+            background-color: rgba(15, 15, 15, 0.8);
+            border: 1px solid #ff66c4;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem auto;
+            max-width: 800px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ad-section::before {
+            content: "AD";
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: #ff66c4;
+            color: #0f0f0f;
+            padding: 2px 5px;
+            font-size: 0.7rem;
+            border-radius: 3px;
+        }
+        
+        .ad-section h3 {
+            color: #ff66c4;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 5px #ff66c4;
+        }
+        
+        .ad-section p {
+            color: #f0f0f0;
+            margin-bottom: 1rem;
+        }
+        
+        .ad-section .ad-link {
+            display: inline-block;
+            background-color: #ff66c4;
+            color: #0f0f0f;
+            padding: 0.5rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 1rem;
+        }
+        
+        .ad-section .ad-link:hover {
+            background-color: #ff99d6;
+            box-shadow: 0 0 15px #ff66c4;
+            transform: scale(1.05);
+        }
+        
+        /* Empty state */
+        .empty-message {
+            text-align: center;
+            color: #a0a0a0;
+            font-style: italic;
+            padding: 2rem 0;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .navbar ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .navbar li {
+                margin: 0.5rem 0;
+            }
+            
+            .heading-container h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-container h2 {
+                font-size: 1.8rem;
+            }
+            
+            .hero-container h3 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="heading-container">
+        <h1>seceret</h1>
+    </div>
+    
+    <nav class="navbar">
+        <ul>
+            <li><a href="#home" class="home">Home</a></li>
+            <li><a href="#about" class="about">About</a></li>
+            <li><a href="#payment" class="payment">Payment</a></li>
+        </ul>
+    </nav>
+
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <span class="close" id="close">&times;</span>
+            <h2>Payment</h2>
+            <p>send money to 096031456 using gcash</p>
+        </div>
+    </div>
+
+    <div class="hero-container">
+        <h2>Welcome to the seceret</h2>
+        <h3>Share your explicit video</h3>
+    </div>
+
+    
+<div class="upload-section">
+    <h2>Contribute</h2>
+    <form id="upload-form" enctype="multipart/form-data">
+        <input type="text" name="title" placeholder="Video Title" required>
+        <input type="text" name="pseudonym" placeholder="Your Pseudonym (Optional)">
+        <input type="file" name="video" accept="video/*" required>
+        <input type="submit" value="Upload">
+    </form>
+</div>
+    <div class="ad-section">
+        <h3>TraffikJunkie - Boost Your Traffic</h3>
+        <p>Get real viewers and increase your engagement with our premium traffic services.</p>
+        <a href="#" class="ad-link" id="ad-link">Visit TraffikJunkie</a>
+    </div>
+
+    <div class="video-section">
+        <!-- Sample video post as an example -->
+        <div class="video-container">
+            <div class="video-post">
+                <h3>Sample Video</h3>
+                <p class="timestamp">Uploaded on April 23, 2025</p>
+                <video controls width="100%">
+                    <source src="https://placehold.it/640x360" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="video-actions">
+                    <button class="like-btn">❤️ Like</button>
+                    <button class="share-btn">📤 Share</button>
+                    <button class="delete-btn">🗑️ Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Redirect to index.php when the form is submitted
+        const uploadForm = document.getElementById("upload-form");
+        uploadForm.addEventListener("submit", function(e) {
+            e.preventDefault();
+            const formData = new FormData(uploadForm);
+            fetch("index.php", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert("Video uploaded successfully!");
+                console.log(data); // Optional: Log the response from index.php
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("An error occurred while uploading the video.");
+            });
+        });
+    </script>
+</body>
+</html>
